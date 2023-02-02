@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
 
     // Saving the screen state with a bundle
     // NOTE : THIS SAVES THE STATE OF THE TWO TEXTVIEWS ONLY AS THE HISTORY IS SAVED
-    // AUTOMATICALLY WITH THE VIEWHOLDER
+    // AUTOMATICALLY WITH THE VIEWMODEL
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("eqn", top.text.toString())
