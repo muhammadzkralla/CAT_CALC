@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +13,6 @@ import com.zkrallah.cat_calc.HistoryAdapter
 import com.zkrallah.cat_calc.databinding.ActivityMainBinding
 import com.zkrallah.cat_calc.model.History
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -33,28 +30,34 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize the ViewModel
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         )[MainViewModel::class.java]
 
+        // Update the UI with the history once the user enters the app
         updateUI()
 
+        // Assign the values
         top = binding.top
         bottom = binding.bottom
         equation = java.lang.StringBuilder()
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        // Take response from user clicks
         initClickListeners()
     }
 
     private fun calculate(equationPassed: String) {
+        // The calculating algorithm with char Array, first, second numbers and the operator
         val chars = equationPassed.toCharArray()
         var firstNum = ""
         var secondNum = ""
         var operator = ""
 
+        // Iterate over the char Array to get the first, second numbers and the operator
         for (i in chars.indices) {
             if (!Character.isDigit(chars[i]) && chars[i] != '.'){
                 firstNum = equationPassed.slice(0 until i)
@@ -63,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 break
             }
         }
+        // Get ready to calculate the answer
         var answer = 0.0f
         when(operator){
             "+" -> answer = firstNum.toFloat() + secondNum.toFloat()
@@ -70,13 +74,19 @@ class MainActivity : AppCompatActivity() {
             "*" -> answer = firstNum.toFloat() * secondNum.toFloat()
             "/" -> answer = firstNum.toFloat() / secondNum.toFloat()
         }
+
+        // Move the equation to the top textView and show the answer on the bottom one
+        // The handler to avoid UI conflicts
         top.text = equation
         Handler(Looper.getMainLooper()).postDelayed({
             bottom.text = answer.toString()
         }, 100)
+
+        // Update the equation to be the answer so you can do further calculations
         equation.clear()
         equation.append(answer)
 
+        // Insert the equation and the answer to the database and update UI
         lifecycleScope.launch(Dispatchers.IO) {
             viewModel.insert(History(top.text.toString() + " = " + answer))
         }
@@ -84,12 +94,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI() {
-        viewModel.allHistory.observe(this, Observer { list ->
+        viewModel.allHistory.observe(this) { list ->
             list?.let {
                 adapter = HistoryAdapter(list)
                 recyclerView.adapter = adapter
             }
-        })
+        }
     }
 
     private fun initClickListeners() {
@@ -167,11 +177,13 @@ class MainActivity : AppCompatActivity() {
             "-" -> equation.append("-")
             "=" -> calculate(equation.toString())
             "c" -> equation.clear()
-
         }
         bottom.text = equation.toString()
     }
 
+    // Saving the screen state with a bundle
+    // NOTE : THIS SAVES THE STATE OF THE TWO TEXTVIEWS ONLY AS THE HISTORY IS SAVED
+    // AUTOMATICALLY WITH THE VIEWHOLDER
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("eqn", top.text.toString())
