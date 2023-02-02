@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText"
+    android:background = "#E5E2E2">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -33,6 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginTop="20dp"
+            android:textColor = "#000000"
+            android:textSize = "24sp"
             app:layout_constraintTop_toTopOf="@+id/topLeft" />
 
 
@@ -41,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginBottom="20dp"
+            android:textColor = "#000000"
+            android:textSize = "24sp"
             app:layout_constraintBottom_toBottomOf="@+id/topLeft" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -65,7 +70,8 @@
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
-            android:text="Zkrallah" />
+            android:text="Zkrallah"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/c"
@@ -74,7 +80,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="C"
-            app:layout_constraintLeft_toRightOf="@+id/name" />
+            app:layout_constraintLeft_toRightOf="@+id/name"
+            android:backgroundTint = "#8A1212"/>
 
         <Button
             android:id="@+id/plus"
@@ -83,7 +90,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="+"
-            app:layout_constraintLeft_toRightOf="@+id/c" />
+            app:layout_constraintLeft_toRightOf="@+id/c"
+            android:backgroundTint = "#8A1212"/>
 
         <Button
             android:id="@+id/seven"
@@ -91,7 +99,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:text="7"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/eight"
@@ -101,7 +110,8 @@
             android:layout_marginTop="5dp"
             android:text="8"
             app:layout_constraintLeft_toRightOf="@+id/seven"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/nine"
@@ -111,7 +121,8 @@
             android:layout_marginTop="5dp"
             android:text="9"
             app:layout_constraintLeft_toRightOf="@+id/eight"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/minus"
@@ -121,7 +132,8 @@
             android:layout_marginTop="5dp"
             android:text="-"
             app:layout_constraintLeft_toRightOf="@+id/nine"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            android:backgroundTint = "#8A1212"/>
 
         <Button
             android:id="@+id/four"
@@ -129,7 +141,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:text="4"
-            app:layout_constraintTop_toBottomOf="@+id/seven" />
+            app:layout_constraintTop_toBottomOf="@+id/seven"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/five"
@@ -139,7 +152,8 @@
             android:layout_marginTop="5dp"
             android:text="5"
             app:layout_constraintLeft_toRightOf="@+id/four"
-            app:layout_constraintTop_toBottomOf="@+id/seven" />
+            app:layout_constraintTop_toBottomOf="@+id/seven"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/six"
@@ -149,7 +163,8 @@
             android:layout_marginTop="5dp"
             android:text="6"
             app:layout_constraintLeft_toRightOf="@+id/five"
-            app:layout_constraintTop_toBottomOf="@+id/seven" />
+            app:layout_constraintTop_toBottomOf="@+id/seven"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/times"
@@ -159,7 +174,8 @@
             android:layout_marginTop="5dp"
             android:text="X"
             app:layout_constraintLeft_toRightOf="@+id/six"
-            app:layout_constraintTop_toBottomOf="@+id/seven" />
+            app:layout_constraintTop_toBottomOf="@+id/seven"
+            android:backgroundTint = "#8A1212"/>
 
         <Button
             android:id="@+id/one"
@@ -167,7 +183,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:text="1"
-            app:layout_constraintTop_toBottomOf="@+id/four" />
+            app:layout_constraintTop_toBottomOf="@+id/four"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/two"
@@ -177,7 +194,8 @@
             android:layout_marginTop="5dp"
             android:text="2"
             app:layout_constraintLeft_toRightOf="@+id/one"
-            app:layout_constraintTop_toBottomOf="@+id/four" />
+            app:layout_constraintTop_toBottomOf="@+id/four"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/three"
@@ -187,7 +205,8 @@
             android:layout_marginTop="5dp"
             android:text="3"
             app:layout_constraintLeft_toRightOf="@+id/two"
-            app:layout_constraintTop_toBottomOf="@+id/four" />
+            app:layout_constraintTop_toBottomOf="@+id/four"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/divide"
@@ -197,7 +216,8 @@
             android:layout_marginTop="5dp"
             android:text="%"
             app:layout_constraintLeft_toRightOf="@+id/three"
-            app:layout_constraintTop_toBottomOf="@+id/four" />
+            app:layout_constraintTop_toBottomOf="@+id/four"
+            android:backgroundTint = "#8A1212"/>
 
         <Button
             android:id="@+id/zero"
@@ -205,7 +225,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:text="0"
-            app:layout_constraintTop_toBottomOf="@+id/one" />
+            app:layout_constraintTop_toBottomOf="@+id/one"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/dot"
@@ -215,7 +236,8 @@
             android:layout_marginTop="5dp"
             android:text="."
             app:layout_constraintLeft_toRightOf="@+id/zero"
-            app:layout_constraintTop_toBottomOf="@+id/one" />
+            app:layout_constraintTop_toBottomOf="@+id/one"
+            android:backgroundTint = "#91939B"/>
 
         <Button
             android:id="@+id/equal"
@@ -225,7 +247,8 @@
             android:layout_marginTop="5dp"
             android:text="="
             app:layout_constraintLeft_toRightOf="@+id/dot"
-            app:layout_constraintTop_toBottomOf="@+id/one" />
+            app:layout_constraintTop_toBottomOf="@+id/one"
+            android:backgroundTint = "#303F9F"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
