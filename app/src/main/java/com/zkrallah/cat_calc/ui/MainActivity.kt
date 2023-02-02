@@ -44,7 +44,12 @@ class MainActivity : AppCompatActivity() {
         bottom = binding.bottom
         equation = java.lang.StringBuilder()
         recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Stack from the end for better UX
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.stackFromEnd = true
+        layoutManager.reverseLayout = true
+        recyclerView.layoutManager = layoutManager
 
         // Take response from user clicks
         initClickListeners()
