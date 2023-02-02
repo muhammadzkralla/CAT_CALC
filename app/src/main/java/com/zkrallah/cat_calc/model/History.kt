@@ -4,8 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data class History(
-    @PrimaryKey val uid: Int,
+@Entity(tableName = "history_table" )
+class History(
     @ColumnInfo(name = "eqn") val eq: String?,
-)
+){
+    @PrimaryKey(autoGenerate = true) var id = 0
+}

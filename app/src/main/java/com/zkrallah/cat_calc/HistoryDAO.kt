@@ -1,5 +1,6 @@
 package com.zkrallah.cat_calc
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -10,9 +11,9 @@ import io.reactivex.Single
 @Dao
 interface HistoryDAO {
 
-    @Query("select * from eqn_database")
-    fun getHistory(): Single<List<History?>?>?
+    @Query("select * from history_table")
+    fun getHistory(): LiveData<List<History>>
 
     @Insert
-    fun insertEqn(post: History?): Completable?
+    suspend fun insertEqn(post: History?)
 }

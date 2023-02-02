@@ -6,7 +6,17 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.zkrallah.cat_calc.HistoryAdapter
 import com.zkrallah.cat_calc.databinding.ActivityMainBinding
+import com.zkrallah.cat_calc.model.History
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,15 +24,27 @@ class MainActivity : AppCompatActivity() {
     private lateinit var equation: StringBuilder
     private lateinit var top: TextView
     private lateinit var bottom: TextView
+    private lateinit var viewModel: MainViewModel
+    private lateinit var adapter: HistoryAdapter
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[MainViewModel::class.java]
+
+        updateUI()
+
         top = binding.top
         bottom = binding.bottom
         equation = java.lang.StringBuilder()
+        recyclerView = binding.recyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         initClickListeners()
     }
@@ -54,6 +76,20 @@ class MainActivity : AppCompatActivity() {
         }, 100)
         equation.clear()
         equation.append(answer)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.insert(History(top.text.toString() + " = " + answer))
+        }
+        updateUI()
+    }
+
+    private fun updateUI() {
+        viewModel.allHistory.observe(this, Observer { list ->
+            list?.let {
+                adapter = HistoryAdapter(list)
+                recyclerView.adapter = adapter
+            }
+        })
     }
 
     private fun initClickListeners() {
@@ -134,5 +170,19 @@ class MainActivity : AppCompatActivity() {
 
         }
         bottom.text = equation.toString()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("eqn", top.text.toString())
+        outState.putString("ans", bottom.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        equation.clear()
+        equation.append(savedInstanceState.getString("ans"))
+        bottom.text = equation
+        top.text = savedInstanceState.getString("eqn")
     }
 }
