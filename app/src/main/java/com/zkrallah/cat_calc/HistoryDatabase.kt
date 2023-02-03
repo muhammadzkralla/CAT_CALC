@@ -1,9 +1,10 @@
 package com.zkrallah.cat_calc
 
-import android.content.Context
+
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.zkrallah.cat_calc.CalcApp.Companion.ctx
 import com.zkrallah.cat_calc.model.History
 
 
@@ -13,9 +14,10 @@ abstract class HistoryDatabase : RoomDatabase() {
 
     companion object {
         private var instance: HistoryDatabase? = null
+        private val context = ctx
 
         @Synchronized
-        fun getInstance(context: Context): HistoryDatabase {
+        fun getInstance(): HistoryDatabase {
             if(instance == null)
                 instance = Room.databaseBuilder(context.applicationContext, HistoryDatabase::class.java,
                     "eqn_database")

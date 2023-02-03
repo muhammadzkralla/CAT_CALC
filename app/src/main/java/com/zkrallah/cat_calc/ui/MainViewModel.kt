@@ -1,25 +1,24 @@
 package com.zkrallah.cat_calc.ui
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.zkrallah.cat_calc.HistoryDatabase
 import com.zkrallah.cat_calc.model.History
-import io.reactivex.CompletableObserver
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel : ViewModel() {
 
-    private val database = HistoryDatabase.getInstance(application)
-
+    private val database = HistoryDatabase.getInstance()
 
     val allHistory: LiveData<List<History>> = database.historyDAO().getHistory()
 
-    suspend fun insert(history: History) {
-        database.historyDAO().insertEqn(history)
+     fun insert(history: History) {
+         viewModelScope.launch (Dispatchers.IO){
+             database.historyDAO().insertEqn(history)
+         }
     }
 }

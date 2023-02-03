@@ -32,10 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize the ViewModel
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )[MainViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         // Update the UI with the history once the user enters the app
         updateUI()
