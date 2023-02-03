@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,13 +72,25 @@ class MainActivity : AppCompatActivity() {
                 break
             }
         }
-        // Get ready to calculate the answer
+
+        // Handle invalid equations
+        if (secondNum.isEmpty()){
+            Toast.makeText(this, "Two numbers are required !", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // Get ready to calculate the answer and handle invalid operations
         var answer = 0.0f
-        when(operator){
-            "+" -> answer = firstNum.toFloat() + secondNum.toFloat()
-            "-" -> answer = firstNum.toFloat() - secondNum.toFloat()
-            "*" -> answer = firstNum.toFloat() * secondNum.toFloat()
-            "/" -> answer = firstNum.toFloat() / secondNum.toFloat()
+        try{
+            when(operator){
+                "+" -> answer = firstNum.toFloat() + secondNum.toFloat()
+                "-" -> answer = firstNum.toFloat() - secondNum.toFloat()
+                "*" -> answer = firstNum.toFloat() * secondNum.toFloat()
+                "/" -> answer = firstNum.toFloat() / secondNum.toFloat()
+            }
+        }catch (ex: NumberFormatException){
+            Toast.makeText(this, "You entered an invalid equation !", Toast.LENGTH_LONG).show()
+            return
         }
 
         // Move the equation to the top textView and show the answer on the bottom one
