@@ -16,9 +16,9 @@ class MainViewModel : ViewModel() {
 
     val allHistory: LiveData<List<History>> = database.historyDAO().getHistory()
 
-     fun insert(history: History) {
-         viewModelScope.launch (Dispatchers.IO){
-             database.historyDAO().insertEqn(history)
-         }
+    fun insert(history: History) {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.historyDAO().insertEqn(history)
+        }
     }
 }
